@@ -18,3 +18,17 @@
 1. 时间：一周
 2. 产出：源码，测试程序或者脚本
 3. 报告：无pre，需要演示
+## 五、计划
+1. 使用getopt解析参数实现键值对的增删改查
+    - -a add a key-value
+    - -d delete a key-value
+    - -f choose a file to storage key-value
+    - -c change a key-value
+    - -q query a key-value
+2. 使用readline进行命令行交互
+    - add add a key-value
+    - query query a key-value
+    - chage change a key-value
+    - del delete a key-value
+3. 使用Makefile构建项目
+4. 使用Github Action 完成测试
