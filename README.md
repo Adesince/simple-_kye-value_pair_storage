@@ -32,4 +32,6 @@
     - [ ] del delete a key-value
     - [ ] help show help information
 3. 使用Makefile构建项目
+    - [x] Use CMAKE
 4. 使用Github Action 完成测试
+    - [ ] Use github Action
