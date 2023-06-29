@@ -155,7 +155,7 @@ int main(int argc, char *argv[])
             res = query_ky(optarg);
             if (res != NULL)
             {
-                printf("The value of key \"%s\" is \"%s\"\n", optarg, res);
+                printf("%s=%s\n", optarg, res);
             }
             else
             {

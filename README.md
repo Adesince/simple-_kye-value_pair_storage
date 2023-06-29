@@ -20,16 +20,16 @@
 3. 报告：无pre，需要演示
 ## 五、计划
 1. 使用getopt解析参数实现键值对的增删改查
-    - -a add a key-value
-    - -c change a key-value
-    - -d delete a key-value
-    - -q query a key-value
-    - -h show help information
+    - [x] -a add a key-value
+    - [ ] -c change a key-value
+    - [ ] -d delete a key-value
+    - [x] -q query a key-value
+    - [ ] -h show help information
 2. 使用readline进行命令行交互
-    - add add a key-value
-    - query query a key-value
-    - chage change a key-value
-    - del delete a key-value
-    - help show help information
+    - [ ] add add a key-value
+    - [ ] query query a key-value
+    - [ ] chage change a key-value
+    - [ ] del delete a key-value
+    - [ ] help show help information
 3. 使用Makefile构建项目
 4. 使用Github Action 完成测试
