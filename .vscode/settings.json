@@ -9,5 +9,12 @@
         "tuple": "cpp",
         "type_traits": "cpp",
         "utility": "cpp"
-    }
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/pathfinder/code/simple_kye-value_pair_storage",
+            "binaryPath": "/home/pathfinder/code/simple_kye-value_pair_storage/main",
+            "binaryArgs": []
+        }
+    ]
 }
