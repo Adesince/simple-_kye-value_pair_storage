@@ -2,6 +2,9 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+
 // 存储key-value文件的名称
 char kv_filename[] = "key_value.txt";
 // 判断kv是否合规
@@ -132,10 +135,37 @@ void help()
     -h show help information\n";
     printf("%s", &help_str);
 }
+
+void cmd_mode()
+{
+    char *line;
+    while ((line = readline("kv_operate >")) != NULL)
+    {
+        if (strcmp(line, "exit") == 0)
+        {
+            break;
+        }
+        else if (strcmp(line, "add") == 0)
+        {
+            printf("Hello, world!\n");
+        }
+        else if (strcmp(line, "query") == 0)
+        {
+            printf("Query!\n");
+        }
+        else
+        {
+            printf("Unknown command: %s\n", line);
+        }
+        add_history(line);
+        free(line);
+    }
+    return;
+}
 int main(int argc, char *argv[])
 {
     int res;
-    while ((res = getopt(argc, argv, "a:c:d:q:h")) != -1)
+    while ((res = getopt(argc, argv, "a:cd:q:h")) != -1)
     {
         switch (res)
         {
@@ -144,8 +174,8 @@ int main(int argc, char *argv[])
             add_kv(optarg);
             break;
             // change a key-value
-        case 'c':
-            break;
+        // case 'c':
+        //     break;
             // delete a key-value
         case 'd':
             break;
@@ -166,7 +196,8 @@ int main(int argc, char *argv[])
         case 'h':
             help();
             break;
-        default:
+        case 'c':
+            cmd_mode();
             break;
         }
     }
