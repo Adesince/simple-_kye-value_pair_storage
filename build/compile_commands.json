@@ -1,7 +1,7 @@
 [
 {
   "directory": "/home/pathfinder/code/simple_kye-value_pair_storage/build",
-  "command": "/usr/bin/g++   -g -o CMakeFiles/main.dir/main.cpp.o -c /home/pathfinder/code/simple_kye-value_pair_storage/main.cpp",
+  "command": "/usr/bin/g++   -g -std=gnu++11 -o CMakeFiles/main.dir/main.cpp.o -c /home/pathfinder/code/simple_kye-value_pair_storage/main.cpp",
   "file": "/home/pathfinder/code/simple_kye-value_pair_storage/main.cpp",
   "output": "CMakeFiles/main.dir/main.cpp.o"
 }

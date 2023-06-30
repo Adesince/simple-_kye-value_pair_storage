@@ -1,1 +1,1 @@
-/usr/bin/g++ -g -rdynamic CMakeFiles/main.dir/main.cpp.o -o main 
+/usr/bin/g++ -g -rdynamic CMakeFiles/main.dir/main.cpp.o -o /home/pathfinder/code/simple_kye-value_pair_storage/main  -lreadline 

@@ -1,8 +1,8 @@
 file(REMOVE_RECURSE
+  "/home/pathfinder/code/simple_kye-value_pair_storage/main"
+  "/home/pathfinder/code/simple_kye-value_pair_storage/main.pdb"
   "CMakeFiles/main.dir/main.cpp.o"
   "CMakeFiles/main.dir/main.cpp.o.d"
-  "main"
-  "main.pdb"
 )
 
 # Per-language clean rules from dependency scanning.

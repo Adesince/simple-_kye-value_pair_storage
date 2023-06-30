@@ -38,9 +38,19 @@ char **format_kv(char *str)
         int i = strlen(str);
         while (str[i - 1] == '\n' || str[i - 1] == '\r')
         {
-            str[i - 1] = '\0';
+            str[i - 1] = 0;
             i--;
         }
+        while (str[0] == 0)
+        {
+            int len = strlen(str);
+            for (size_t i = 0; i < len; i++)
+            {
+                str[i] = str[i + 1];
+            }
+            str[len - 1] = 0;
+        }
+
         char **key_value = (char **)malloc(2 * sizeof(char));
         key_value[0] = strtok(str, "=");
         key_value[1] = strtok(NULL, "=");
@@ -92,46 +102,50 @@ void add_kv(char *optarg)
     strcpy(str, optarg);
     char **key_value;
     key_value = format_kv(str);
-    if (key_value && !query_ky(key_value[0]))
+    if (key_value)
     {
-        FILE *kv_file = fopen(kv_filename, "a");
-        fputs(key_value[0], kv_file);
-        fputs("=", kv_file);
-        fputs(key_value[1], kv_file);
-        fputs("\n", kv_file);
-        fclose(kv_file);
+        if (!query_ky(key_value[0]))
+        {
+            FILE *kv_file = fopen(kv_filename, "a");
+            fputs(key_value[0], kv_file);
+            fputs("=", kv_file);
+            fputs(key_value[1], kv_file);
+            fputs("\n", kv_file);
+            fclose(kv_file);
+        }
+        else
+        {
+            printf("The key maybe has existed in the file!\n");
+        }
     }
     else
     {
-        printf("\
-Error!Key-value format is \"key=value\"!\n\
-The key maybe has existed in the file!\n");
+        printf("Error!Key-value format is \"key=value\"!\n");
     }
     free(str);
     return;
 }
-// 更改一个key-value
-void change_kv()
-{
-}
 // 删除一个key-value
-void del_kv()
+void del_kv(char *ket)
 {
+    printf("Delete the key!\n");
 }
 
 // 返回帮助信息
 void help()
 {
-    char help_str[] = " \
-    -a add a key-value\n \
-        key-value format is \"key=value\"\n \
-    -c change a key-value\n \
-        input a key-value which key has exsited in file,\n \
-        then this action will update this key's value \n \
+    char help_str[] = "\
+    -a add a key-value\n\
+        key-value format is \"key=value\"\n\
+    -c enter the cmd mode\n\
+        \"add key=value\" add a key-value pair\n\
+        \"query key\" query a key-value pari\n\
+        \"del key\" delete a key-value\n\
+        \"exit\" exit the cmd mode\n\
     -d delete a key-valu\n \
-        input a key delete a value\n \
-    -q query a key-value\n \
-        input a key ,return this key's value\n \
+        input a key delete a value\n\
+    -q query a key-value\n\
+        input a key ,return this key's value\n\
     -h show help information\n";
     printf("%s", &help_str);
 }
@@ -145,22 +159,43 @@ void cmd_mode()
         {
             break;
         }
-        else if (strcmp(line, "add") == 0)
+        if (strstr(line, "add") == line)
         {
-            printf("Hello, world!\n");
+            strtok(line, " ");
+            char *kv_str = strtok(NULL, " ");
+            add_kv(kv_str);
         }
-        else if (strcmp(line, "query") == 0)
+        else if (strstr(line, "del") == line)
         {
-            printf("Query!\n");
+            strtok(line, " ");
+            char *kv_str = strtok(NULL, " ");
+            del_kv(kv_str);
+        }
+        else if (strstr(line, "query") == line)
+        {
+            strtok(line, " ");
+            char *key = strtok(NULL, " ");
+            char *res = query_ky(key);
+            if (res != NULL)
+            {
+                printf("%s=%s\n", key, res);
+            }
+            else
+            {
+                printf("Error!Can\'t find the value of key \"%s\"!\n", key);
+            }
+        }
+        else if (strstr(line, "help") == line)
+        {
+            help();
         }
         else
         {
-            printf("Unknown command: %s\n", line);
+            printf("Unkonw command!Please use \"help\" check help info!\n");
         }
         add_history(line);
         free(line);
     }
-    return;
 }
 int main(int argc, char *argv[])
 {
@@ -174,9 +209,6 @@ int main(int argc, char *argv[])
             add_kv(optarg);
             break;
             // change a key-value
-        // case 'c':
-        //     break;
-            // delete a key-value
         case 'd':
             break;
             // query a key-value
