@@ -79,11 +79,8 @@ char *query_ky(char *mykey)
     char buffer[4096];
     while (!feof(kv_file))
     {
-        char *str;
-        str = fgets(buffer, 4096, kv_file);
-        char **key_value;
-        // 将读取的每行转为key-value
-        key_value = format_kv(str);
+        char *str = fgets(buffer, 4096, kv_file);
+        char **key_value = format_kv(str);
         if ((NULL != key_value) && (strcmp(key_value[0], mykey) == 0))
         {
             return key_value[1];
@@ -112,6 +109,7 @@ void add_kv(char *optarg)
             fputs(key_value[1], kv_file);
             fputs("\n", kv_file);
             fclose(kv_file);
+            printf("Add key-value success!\n");
         }
         else
         {
@@ -126,9 +124,64 @@ void add_kv(char *optarg)
     return;
 }
 // 删除一个key-value
-void del_kv(char *ket)
+void del_kv(char *key)
 {
-    printf("Delete the key!\n");
+    char *value = query_ky(key);
+
+    if (value == NULL)
+    {
+        printf("Error! The key is not existed!\n");
+        return;
+    }
+    else
+    {
+        printf("%s=%s\n", key, value);
+    }
+
+    int len = strlen(kv_filename);
+    char *tmp_filename = (char *)malloc(len + 4);
+    strcpy(tmp_filename, kv_filename);
+    strcat(tmp_filename, ".tmp");
+    FILE *kv_file = fopen(kv_filename, "r");
+    FILE *tmp_file = fopen(tmp_filename, "w");
+
+    if (kv_file == NULL)
+    {
+        printf("Error! Can\'t open %s!", kv_filename);
+        return;
+    }
+    if (tmp_file == NULL)
+    {
+        printf("Error! Can\'t open %s!", tmp_filename);
+        return;
+    }
+    char buffer[4096];
+    while (!feof(kv_file))
+    {
+        char *str = fgets(buffer, 4096, kv_file);
+        if (NULL == str)
+        {
+            break;
+        }
+        int len = strlen(str);
+        char *tmp_str = (char *)malloc(len);
+        strcpy(tmp_str, str);
+        char **key_value = format_kv(tmp_str);
+
+        if (key_value != NULL && strcmp(key, key_value[0]) != 0)
+        {
+
+            fputs(str, tmp_file);
+        }
+        free(tmp_str);
+    }
+    fclose(tmp_file);
+    fclose(kv_file);
+    remove(kv_filename);
+    rename(tmp_filename, kv_filename);
+    free(tmp_filename);
+
+    printf("Delete success!\n");
 }
 
 // 返回帮助信息
@@ -210,6 +263,7 @@ int main(int argc, char *argv[])
             break;
             // change a key-value
         case 'd':
+            del_kv(optarg);
             break;
             // query a key-value
         case 'q':

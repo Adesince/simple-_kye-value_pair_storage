@@ -22,15 +22,15 @@
 1. 使用getopt解析参数实现键值对的增删改查
     - [X] `-a` add a key-value
     - [X] `-c` enter the cmd mode
-    - [ ] `-d` delete a key-value
+    - [X] `-d` delete a key-value
     - [X] `-q` query a key-value
     - [X] `-h` show help information
 2. 使用readline进行命令行交互
-    - [X] add add a key-value
-    - [X] query query a key-value
-    - [ ] del delete a key-value
-    - [X] exit exit the cmd mode
-    - [X] help show help information
+    - [X] `add` add a key-value
+    - [X] `query` query a key-value
+    - [X] `del` delete a key-value
+    - [X] `exit` exit the cmd mode
+    - [X] `help` show help information
 3. 使用Makefile构建项目
     - [X] Use CMAKE
 4. 使用Github Action 完成测试
