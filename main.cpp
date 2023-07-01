@@ -285,6 +285,9 @@ int main(int argc, char *argv[])
         case 'c':
             cmd_mode();
             break;
+        default:
+            printf("Unkown command!\n");
+            break;
         }
     }
     return 0;

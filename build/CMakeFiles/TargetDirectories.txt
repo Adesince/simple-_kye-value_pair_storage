@@ -1,3 +1,0 @@
-/home/pathfinder/code/simple_kye-value_pair_storage/build/CMakeFiles/main.dir
-/home/pathfinder/code/simple_kye-value_pair_storage/build/CMakeFiles/edit_cache.dir
-/home/pathfinder/code/simple_kye-value_pair_storage/build/CMakeFiles/rebuild_cache.dir
